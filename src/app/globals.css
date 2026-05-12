@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@400;500;600&display=swap');
+
+/* ─── Lenis (recommended) — keeps native scroll-behavior from fighting the instance ─ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ─── Embedded preview (iframe): Lenis is disabled; restore cursor & hide fake cursor ─ */
+html[data-embedded-preview] *,
+html[data-embedded-preview] *::before,
+html[data-embedded-preview] *::after {
+  cursor: auto !important;
+}
+
+html[data-embedded-preview] .cursor,
+html[data-embedded-preview] .cursor-dot {
+  display: none !important;
+}
+
+/* ─── Custom cursor ─────────────────────────────────────────── */
+*, *::before, *::after {
+  cursor: none !important;
+}
+
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid #D4A017;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease, width 0.3s cubic-bezier(0.16,1,0.3,1),
+    height 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease;
+  mix-blend-mode: multiply;
+}
+
+.cursor--hover {
+  width: 64px;
+  height: 64px;
+  border-color: #6B2426;
+  background: rgba(212, 160, 23, 0.08);
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #D4A017;
+  pointer-events: none;
+  z-index: 10000;
+  transition: background 0.2s ease;
+}
+
+/* ─── Scroll reveal ──────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+    transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .word-reveal span {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── Botanical SVG draw ─────────────────────────────────────── */
+.botanical-draw path,
+.botanical-draw line,
+.botanical-draw polyline,
+.botanical-draw circle,
+.botanical-draw ellipse {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 2s cubic-bezier(0.16,1,0.3,1);
+}
+
+.botanical-draw.is-revealed path,
+.botanical-draw.is-revealed line,
+.botanical-draw.is-revealed polyline,
+.botanical-draw.is-revealed circle,
+.botanical-draw.is-revealed ellipse {
+  stroke-dashoffset: 0;
+}
+
+/* ─── Typography ─────────────────────────────────────────────── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #FAF8F4;
+  color: #2B1810;
+  font-family: var(--font-garamond), Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+::selection {
+  background: #D4A017;
+  color: #FAF8F4;
+}
+
+.font-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+}
+
+.label {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* ─── Page transitions ───────────────────────────────────────── */
+/* Avoid opacity:0 + clip-path “both” fill — breaks if animation doesn’t run (some previews). */
+.page-bloom {
+  animation: pageBloomFade 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageBloomFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-bloom {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ─── Ornamental dividers ────────────────────────────────────── */
+.ornament {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: #D4A017;
+}
+
+.ornament::before,
+.ornament::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: currentColor;
+}
+
+/* ─── Hover line link ────────────────────────────────────────── */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ─── Card hover ─────────────────────────────────────────────── */
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+    box-shadow 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(43,24,16,0.12);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF8F4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4A017;
+  border-radius: 3px;
+}
+
+/* ─── Word reveal animation ──────────────────────────────────── */
+.word-reveal span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+
+.word-reveal.is-revealed span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Section line decorations ───────────────────────────────── */
+.section-rule {
+  border: none;
+  border-top: 1px solid rgba(212, 160, 23, 0.35);
+}
+
+/* ─── Ink texture overlay ────────────────────────────────────── */
+.texture-overlay {
+  position: relative;
+}
+
+.texture-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}

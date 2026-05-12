@@ -1,0 +1,15 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/cart/page": "app/cart/page.js",
+  "/almanac/page": "app/almanac/page.js",
+  "/visit/page": "app/visit/page.js",
+  "/our-story/page": "app/our-story/page.js",
+  "/seed-library/page": "app/seed-library/page.js",
+  "/seed-library/[slug]/page": "app/seed-library/[slug]/page.js",
+  "/membership/page": "app/membership/page.js",
+  "/greenhouse/page": "app/greenhouse/page.js",
+  "/almanac/[slug]/page": "app/almanac/[slug]/page.js",
+  "/shop/[slug]/page": "app/shop/[slug]/page.js",
+  "/shop/page": "app/shop/page.js"
+}
