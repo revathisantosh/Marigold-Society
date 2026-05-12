@@ -10,15 +10,11 @@ interface Props {
 }
 
 export function WordReveal({ text, className, tag: Tag = "p", delay = 0 }: Props) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useScrollReveal<any>(0.1);
+  const ref = useScrollReveal<HTMLElement>(0.1);
   const words = text.split(" ");
 
   return (
-    <Tag
-      ref={ref}
-      className={cn("word-reveal", className)}
-    >
+    <Tag ref={ref as never} className={cn("word-reveal", className)}>
       {words.map((word, i) => (
         <span
           key={i}

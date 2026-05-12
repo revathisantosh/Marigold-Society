@@ -2,11 +2,16 @@
   "name": "marigold-society",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "ci": "npm run lint && npm run typecheck && npm run build"
   },
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",
@@ -16,6 +21,7 @@
     "next": "14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "sharp": "^0.34.5",
     "tailwind-merge": "^2.4.0"
   },
   "devDependencies": {

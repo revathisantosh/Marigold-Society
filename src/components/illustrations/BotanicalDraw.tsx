@@ -10,8 +10,7 @@ interface Props {
 }
 
 export function BotanicalDraw({ variant = "marigold", className, style }: Props) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useScrollReveal<any>(0.2);
+  const ref = useScrollReveal<SVGSVGElement>(0.2);
 
   return (
     <>
